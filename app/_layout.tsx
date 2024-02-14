@@ -1,8 +1,11 @@
-import { FontAwesome } from '@expo/vector-icons';
+import Colors from '@/constants/Colors';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,11 +35,31 @@ export default function RootLayout() {
 }
 
 const RootLayoutNav = () => {
+  const router = useRouter();
   return (
     // <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
-    // </ClerkProvider>
+    <>
+      <StatusBar style="light" />
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="signup"
+          options={{
+            title: '',
+            headerBackTitle: '',
+            headerStyle: {
+              backgroundColor: Colors.background,
+            },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()}>
+                <Ionicons name="arrow-back" size={34} color={Colors.dark} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+      </Stack>
+    </>
   );
 };
