@@ -23,4 +23,15 @@ export const defaultStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
   },
+  descriptionText: {
+    fontSize: 18,
+    marginTop: 20,
+    color: Colors.gray,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '500',
+  },
 });
