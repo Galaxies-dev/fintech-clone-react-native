@@ -19,6 +19,7 @@
     "expo": "~50.0.6",
     "expo-asset": "~9.0.2",
     "expo-av": "~13.10.5",
+    "expo-blur": "~12.9.2",
     "expo-dev-client": "~3.3.8",
     "expo-font": "~11.10.2",
     "expo-linking": "~6.2.2",
@@ -36,12 +37,13 @@
     "react-native-ios-context-menu": "^2.4.3",
     "react-native-ios-utilities": "^4.3.2",
     "react-native-mmkv": "^2.12.1",
-    "react-native-reanimated": "~3.6.2",
+    "react-native-reanimated": "^3.7.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
     "zeego": "^1.9.1",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "expo-image-picker": "~14.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

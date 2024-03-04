@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import * as SecureStore from 'expo-secure-store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -131,6 +132,20 @@ const InitialLayout = () => {
         }}
       />
       <Stack.Screen name="(authenticated)/(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(authenticated)/(modals)/account"
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          headerTransparent: true,
+          title: '',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={30} color={'#fff'} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack>
   );
 };
@@ -138,8 +153,10 @@ const InitialLayout = () => {
 const RootLayoutNav = () => {
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-      <StatusBar style="light" />
-      <InitialLayout />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar style="light" />
+        <InitialLayout />
+      </GestureHandlerRootView>
     </ClerkProvider>
   );
 };

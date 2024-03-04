@@ -5,16 +5,14 @@ import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { useBalanceStore } from '@/store/balanceStore';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { ScrollView, Text, StyleSheet, View, TouchableOpacity, Button } from 'react-native';
+import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 const Page = () => {
   const { balance, runTransaction, transactions, clearTransactions } = useBalanceStore();
+  const headerHeight = useHeaderHeight();
 
   const onAddMoney = () => {
-    const foo = Math.random() > 0.5 ? 1 : -1;
-    console.log('foo', foo);
-
     runTransaction({
       id: Math.random().toString(),
       title: 'Add money',
@@ -24,8 +22,10 @@ const Page = () => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.background }}>
-      <View style={styles.account}>
+    <ScrollView
+      style={{ backgroundColor: Colors.background }}
+      contentContainerStyle={{ paddingTop: headerHeight }}>
+      <View style={[styles.account, { zIndex: 1000 }]}>
         <View style={styles.row}>
           <Text style={styles.balance}>{balance()}</Text>
           <Text style={styles.currency}>€</Text>

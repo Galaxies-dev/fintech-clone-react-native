@@ -1,10 +1,8 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MARGIN } from './Config';
 import Tile from './Tile';
 import SortableList from './SortableList';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { View } from 'react-native';
 
 const tiles = [
@@ -24,9 +22,10 @@ const tiles = [
 
 const WidgetList = () => {
   return (
-    <GestureHandlerRootView
+    <View
       style={{
         paddingHorizontal: MARGIN,
+        marginBottom: 80,
       }}>
       <SortableList
         editing={true}
@@ -35,7 +34,7 @@ const WidgetList = () => {
           <Tile onLongPress={() => true} key={tile.id + '-' + index} id={tile.id} />
         ))}
       </SortableList>
-    </GestureHandlerRootView>
+    </View>
   );
 };
 
