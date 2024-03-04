@@ -23,6 +23,7 @@
     "expo-font": "~11.10.2",
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.7",
+    "expo-secure-store": "~12.8.1",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
     "expo-system-ui": "~2.9.3",
@@ -32,11 +33,15 @@
     "react-native": "0.73.4",
     "react-native-confirmation-code-field": "^7.3.2",
     "react-native-gesture-handler": "~2.14.0",
+    "react-native-ios-context-menu": "^2.4.3",
+    "react-native-ios-utilities": "^4.3.2",
+    "react-native-mmkv": "^2.12.1",
     "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
-    "expo-secure-store": "~12.8.1"
+    "zeego": "^1.9.1",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

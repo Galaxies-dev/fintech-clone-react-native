@@ -28,10 +28,21 @@ export const defaultStyles = StyleSheet.create({
     marginTop: 20,
     color: Colors.gray,
   },
-
   buttonText: {
     color: '#fff',
     fontSize: 18,
+    fontWeight: '500',
+  },
+  pillButtonSmall: {
+    paddingHorizontal: 20,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonTextSmall: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: '500',
   },
 });
