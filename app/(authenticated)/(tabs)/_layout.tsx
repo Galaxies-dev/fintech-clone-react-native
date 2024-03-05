@@ -1,10 +1,17 @@
 import CustomHeader from '@/components/CustomHeader';
 import Colors from '@/constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Tabs, useSegments } from 'expo-router';
 import { BlurView } from 'expo-blur';
+import { useEffect } from 'react';
 
 const Layout = () => {
+  const segments = useSegments();
+
+  useEffect(() => {
+    console.log(segments);
+  }, [segments]);
+
   return (
     <Tabs
       screenOptions={{
@@ -56,10 +63,13 @@ const Layout = () => {
       <Tabs.Screen
         name="crypto"
         options={{
+          headerShown: false,
           title: 'Crypto',
           tabBarIcon: ({ size, color }) => <FontAwesome name="bitcoin" size={size} color={color} />,
-          header: () => <CustomHeader />,
-          headerTransparent: true,
+          tabBarStyle: {
+            backgroundColor: Colors.background,
+            display: segments[3] === '[id]' ? 'none' : 'flex',
+          },
         }}
       />
       <Tabs.Screen
