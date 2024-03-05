@@ -45,4 +45,10 @@ export const defaultStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  sectionHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 20,
+    marginBottom: 10,
+  },
 });

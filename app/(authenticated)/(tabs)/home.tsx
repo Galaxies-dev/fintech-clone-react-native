@@ -25,7 +25,7 @@ const Page = () => {
     <ScrollView
       style={{ backgroundColor: Colors.background }}
       contentContainerStyle={{ paddingTop: headerHeight }}>
-      <View style={[styles.account, { zIndex: 1000 }]}>
+      <View style={styles.account}>
         <View style={styles.row}>
           <Text style={styles.balance}>{balance()}</Text>
           <Text style={styles.currency}>€</Text>
@@ -45,7 +45,7 @@ const Page = () => {
         <Dropdown />
       </View>
 
-      <Text style={styles.sectionHeader}>Transactions</Text>
+      <Text style={defaultStyles.sectionHeader}>Transactions</Text>
 
       <View style={styles.transactions}>
         {transactions.length === 0 && (
@@ -75,7 +75,7 @@ const Page = () => {
           ))}
       </View>
 
-      <Text style={styles.sectionHeader}>Widgets</Text>
+      <Text style={defaultStyles.sectionHeader}>Widgets</Text>
       <WidgetList />
     </ScrollView>
   );
@@ -119,12 +119,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  sectionHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 20,
-    marginBottom: 10,
   },
 });
 
