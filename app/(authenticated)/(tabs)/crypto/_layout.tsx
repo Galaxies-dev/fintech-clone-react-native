@@ -22,10 +22,6 @@ const Layout = () => {
           title: '',
           headerLargeTitle: true,
           headerTransparent: true,
-          headerBlurEffect: 'regular',
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
           headerLeft: () => (
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="arrow-back" color={Colors.dark} size={30} />

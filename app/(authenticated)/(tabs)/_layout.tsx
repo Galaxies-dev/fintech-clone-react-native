@@ -3,15 +3,9 @@ import Colors from '@/constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
 import { Tabs, useSegments } from 'expo-router';
 import { BlurView } from 'expo-blur';
-import { useEffect } from 'react';
 
 const Layout = () => {
   const segments = useSegments();
-
-  useEffect(() => {
-    console.log(segments);
-  }, [segments]);
-
   return (
     <Tabs
       screenOptions={{

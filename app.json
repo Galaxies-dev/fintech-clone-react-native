@@ -36,7 +36,13 @@
           "origin": "https://galaxies.dev"
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

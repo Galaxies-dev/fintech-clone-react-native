@@ -39,3 +39,10 @@ interface EUR {
   tvl?: any;
   last_updated: string;
 }
+
+export interface Ticker {
+  timestamp: string;
+  price: number;
+  volume_24h: number;
+  market_cap: number;
+}
