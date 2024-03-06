@@ -138,6 +138,15 @@ const Page = () => {
             )}
           </View>
         </View>
+        <Text
+          style={{
+            alignSelf: 'center',
+            color: Colors.primary,
+            fontWeight: '500',
+            fontSize: 18,
+          }}>
+          Forgot your passcode?
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -147,7 +156,7 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 24,
     fontWeight: '600',
-    marginTop: 100,
+    marginTop: 80,
     alignSelf: 'center',
   },
   codeView: {

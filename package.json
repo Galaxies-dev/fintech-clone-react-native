@@ -25,6 +25,7 @@
     "expo-av": "~13.10.5",
     "expo-blur": "~12.9.2",
     "expo-dev-client": "~3.3.8",
+    "expo-dynamic-app-icon": "^1.2.0",
     "expo-font": "~11.10.2",
     "expo-haptics": "~12.8.1",
     "expo-image-picker": "~14.7.1",
