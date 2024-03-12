@@ -2,16 +2,16 @@ import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { isClerkAPIResponseError, useSignIn } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  TextInput,
   Alert,
 } from 'react-native';
 
@@ -23,9 +23,9 @@ enum SignInType {
 }
 
 const Page = () => {
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
   const [countryCode, setCountryCode] = useState('+49');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
   const router = useRouter();
   const { signIn } = useSignIn();
 
@@ -37,7 +37,6 @@ const Page = () => {
         const { supportedFirstFactors } = await signIn!.create({
           identifier: fullPhoneNumber,
         });
-
         const firstPhoneFactor: any = supportedFirstFactors.find((factor: any) => {
           return factor.strategy === 'phone_code';
         });
@@ -48,6 +47,7 @@ const Page = () => {
           strategy: 'phone_code',
           phoneNumberId,
         });
+
         router.push({
           pathname: '/verify/[phone]',
           params: { phone: fullPhoneNumber, signin: 'true' },
@@ -65,9 +65,9 @@ const Page = () => {
 
   return (
     <KeyboardAvoidingView
-      keyboardVerticalOffset={keyboardVerticalOffset}
       style={{ flex: 1 }}
-      behavior="padding">
+      behavior="padding"
+      keyboardVerticalOffset={keyboardVerticalOffset}>
       <View style={defaultStyles.container}>
         <Text style={defaultStyles.header}>Welcome back</Text>
         <Text style={defaultStyles.descriptionText}>
@@ -80,14 +80,13 @@ const Page = () => {
             placeholderTextColor={Colors.gray}
             value={countryCode}
           />
-
           <TextInput
             style={[styles.input, { flex: 1 }]}
             placeholder="Mobile number"
             placeholderTextColor={Colors.gray}
+            keyboardType="numeric"
             value={phoneNumber}
             onChangeText={setPhoneNumber}
-            keyboardType="numeric"
           />
         </View>
 
@@ -97,9 +96,8 @@ const Page = () => {
             phoneNumber !== '' ? styles.enabled : styles.disabled,
             { marginBottom: 20 },
           ]}
-          disabled={!phoneNumber}
           onPress={() => onSignIn(SignInType.Phone)}>
-          <Text style={[defaultStyles.buttonText]}>Continue</Text>
+          <Text style={defaultStyles.buttonText}>Continue</Text>
         </TouchableOpacity>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
@@ -113,50 +111,64 @@ const Page = () => {
         </View>
 
         <TouchableOpacity
+          onPress={() => onSignIn(SignInType.Email)}
           style={[
             defaultStyles.pillButton,
-            { marginTop: 20, backgroundColor: '#fff', flexDirection: 'row', gap: 16 },
-          ]}
-          onPress={() => onSignIn(SignInType.Email)}>
+            {
+              flexDirection: 'row',
+              gap: 16,
+              marginTop: 20,
+              backgroundColor: '#fff',
+            },
+          ]}>
           <Ionicons name="mail" size={24} color={'#000'} />
-          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with email</Text>
+          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with email </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => onSignIn(SignInType.Google)}
           style={[
             defaultStyles.pillButton,
-            { marginTop: 20, backgroundColor: '#fff', flexDirection: 'row', gap: 16 },
-          ]}
-          onPress={() => onSignIn(SignInType.Google)}>
+            {
+              flexDirection: 'row',
+              gap: 16,
+              marginTop: 20,
+              backgroundColor: '#fff',
+            },
+          ]}>
           <Ionicons name="logo-google" size={24} color={'#000'} />
-          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with Google</Text>
+          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with email </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => onSignIn(SignInType.Apple)}
           style={[
             defaultStyles.pillButton,
-            { marginTop: 20, backgroundColor: '#fff', flexDirection: 'row', gap: 16 },
-          ]}
-          onPress={() => onSignIn(SignInType.Apple)}>
+            {
+              flexDirection: 'row',
+              gap: 16,
+              marginTop: 20,
+              backgroundColor: '#fff',
+            },
+          ]}>
           <Ionicons name="logo-apple" size={24} color={'#000'} />
-          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with Apple</Text>
+          <Text style={[defaultStyles.buttonText, { color: '#000' }]}>Continue with email </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
-
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 40,
     flexDirection: 'row',
   },
   input: {
-    padding: 20,
     backgroundColor: Colors.lightGray,
+    padding: 20,
     borderRadius: 16,
-    marginRight: 10,
     fontSize: 20,
+    marginRight: 10,
   },
   enabled: {
     backgroundColor: Colors.primary,

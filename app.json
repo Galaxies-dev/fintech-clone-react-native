@@ -15,7 +15,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.supersimon.fintech"
+      "bundleIdentifier": "com.galaxies.fintech"
     },
     "android": {
       "adaptiveIcon": {

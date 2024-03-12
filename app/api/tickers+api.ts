@@ -1,7 +1,5 @@
 import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 
-const API_KEY = process.env.CRYPTO_API_KEY;
-
 export async function GET(request: ExpoRequest) {
   // const response = await fetch(
   //   `https://api.coinpaprika.com/v1/tickers/btc-bitcoin/historical?start=2024-01-01&interval=1d`
@@ -399,8 +397,50 @@ const data = [
   },
   {
     timestamp: '2024-03-05T00:00:00Z',
-    price: 67379.6,
-    volume_24h: 65977765119,
-    market_cap: 1323675149188,
+    price: 66231.42,
+    volume_24h: 71646839317,
+    market_cap: 1301136217279,
+  },
+  {
+    timestamp: '2024-03-06T00:00:00Z',
+    price: 65967.28,
+    volume_24h: 83579811918,
+    market_cap: 1295140803705,
+  },
+  {
+    timestamp: '2024-03-07T00:00:00Z',
+    price: 66863,
+    volume_24h: 49265715529,
+    market_cap: 1313675687104,
+  },
+  {
+    timestamp: '2024-03-08T00:00:00Z',
+    price: 67779.98,
+    volume_24h: 43090760490,
+    market_cap: 1331760711857,
+  },
+  {
+    timestamp: '2024-03-09T00:00:00Z',
+    price: 68413.63,
+    volume_24h: 44516079008,
+    market_cap: 1344280727872,
+  },
+  {
+    timestamp: '2024-03-10T00:00:00Z',
+    price: 69414.36,
+    volume_24h: 25786485181,
+    market_cap: 1364008786938,
+  },
+  {
+    timestamp: '2024-03-11T00:00:00Z',
+    price: 71012.88,
+    volume_24h: 45768614399,
+    market_cap: 1395492712945,
+  },
+  {
+    timestamp: '2024-03-12T00:00:00Z',
+    price: 72016.38,
+    volume_24h: 56528925733,
+    market_cap: 1415263222742,
   },
 ];

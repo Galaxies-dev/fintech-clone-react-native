@@ -4,6 +4,7 @@ const API_KEY = process.env.CRYPTO_API_KEY;
 
 export async function GET(request: ExpoRequest) {
   // const limit = request.expoUrl.searchParams.get('limit') || 5;
+
   // const response = await fetch(
   //   `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=${limit}&convert=EUR`,
   //   {

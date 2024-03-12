@@ -1,17 +1,18 @@
 import Colors from '@/constants/Colors';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { Ionicons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Link, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import * as SecureStore from 'expo-secure-store';
+import { TouchableOpacity, Text, View, ActivityIndicator } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { UserInactivityProvider } from '@/components/UserInactivity';
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+import * as SecureStore from 'expo-secure-store';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { UserInactivityProvider } from '@/context/UserInactivity';
 const queryClient = new QueryClient();
 
 // Cache the Clerk JWT
@@ -32,6 +33,11 @@ const tokenCache = {
   },
 };
 
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -40,9 +46,9 @@ const InitialLayout = () => {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+  const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
-  const router = useRouter();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -68,24 +74,25 @@ const InitialLayout = () => {
   }, [isSignedIn]);
 
   if (!loaded || !isLoaded) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
   }
 
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-
       <Stack.Screen
         name="signup"
         options={{
           title: '',
           headerBackTitle: '',
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
           headerShadowVisible: false,
+          headerStyle: { backgroundColor: Colors.background },
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity onPress={router.back}>
               <Ionicons name="arrow-back" size={34} color={Colors.dark} />
             </TouchableOpacity>
           ),
@@ -97,17 +104,15 @@ const InitialLayout = () => {
         options={{
           title: '',
           headerBackTitle: '',
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
           headerShadowVisible: false,
+          headerStyle: { backgroundColor: Colors.background },
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity onPress={router.back}>
               <Ionicons name="arrow-back" size={34} color={Colors.dark} />
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <Link href="/help" asChild>
+            <Link href={'/help'} asChild>
               <TouchableOpacity>
                 <Ionicons name="help-circle-outline" size={34} color={Colors.dark} />
               </TouchableOpacity>
@@ -115,6 +120,7 @@ const InitialLayout = () => {
           ),
         }}
       />
+
       <Stack.Screen name="help" options={{ title: 'Help', presentation: 'modal' }} />
 
       <Stack.Screen
@@ -122,12 +128,10 @@ const InitialLayout = () => {
         options={{
           title: '',
           headerBackTitle: '',
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
           headerShadowVisible: false,
+          headerStyle: { backgroundColor: Colors.background },
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity onPress={router.back}>
               <Ionicons name="arrow-back" size={34} color={Colors.dark} />
             </TouchableOpacity>
           ),
@@ -135,24 +139,44 @@ const InitialLayout = () => {
       />
       <Stack.Screen name="(authenticated)/(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
-        name="(authenticated)/(modals)/account"
+        name="(authenticated)/crypto/[id]"
         options={{
-          presentation: 'transparentModal',
-          animation: 'fade',
-          headerTransparent: true,
           title: '',
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="close-outline" size={30} color={'#fff'} />
+            <TouchableOpacity onPress={router.back}>
+              <Ionicons name="arrow-back" size={34} color={Colors.dark} />
             </TouchableOpacity>
+          ),
+          headerLargeTitle: true,
+          headerTransparent: true,
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+              <TouchableOpacity>
+                <Ionicons name="notifications-outline" color={Colors.dark} size={30} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Ionicons name="star-outline" color={Colors.dark} size={30} />
+              </TouchableOpacity>
+            </View>
           ),
         }}
       />
       <Stack.Screen
         name="(authenticated)/(modals)/lock"
+        options={{ headerShown: false, animation: 'none' }}
+      />
+      <Stack.Screen
+        name="(authenticated)/(modals)/account"
         options={{
-          animation: 'none',
-          headerShown: false,
+          presentation: 'transparentModal',
+          animation: 'fade',
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={router.back}>
+              <Ionicons name="close-outline" size={34} color={'#fff'} />
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack>

@@ -1,6 +1,6 @@
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
-import { useSignUp, isClerkAPIResponseError, useSignIn } from '@clerk/clerk-expo';
+import { isClerkAPIResponseError, useSignIn, useSignUp } from '@clerk/clerk-expo';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { Fragment, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
@@ -15,19 +15,19 @@ const CELL_COUNT = 6;
 const Page = () => {
   const { phone, signin } = useLocalSearchParams<{ phone: string; signin: string }>();
   const [code, setCode] = useState('');
+  const { signIn } = useSignIn();
+  const { signUp, setActive } = useSignUp();
 
   const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value: code,
     setValue: setCode,
   });
-  const { signUp, setActive } = useSignUp();
-  const { signIn } = useSignIn();
 
   useEffect(() => {
     if (code.length === 6) {
       if (signin === 'true') {
-        veryifySignIn();
+        verifySignIn();
       } else {
         verifyCode();
       }
@@ -39,7 +39,6 @@ const Page = () => {
       await signUp!.attemptPhoneNumberVerification({
         code,
       });
-
       await setActive!({ session: signUp!.createdSessionId });
     } catch (err) {
       console.log('error', JSON.stringify(err, null, 2));
@@ -49,13 +48,12 @@ const Page = () => {
     }
   };
 
-  const veryifySignIn = async () => {
+  const verifySignIn = async () => {
     try {
       await signIn!.attemptFirstFactor({
         strategy: 'phone_code',
         code,
       });
-
       await setActive!({ session: signIn!.createdSessionId });
     } catch (err) {
       console.log('error', JSON.stringify(err, null, 2));
@@ -134,5 +132,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-
 export default Page;
